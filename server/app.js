@@ -36,9 +36,18 @@ function handleRequest(request, response) {
 		
 		else if(key)
 		{
+			try{
 			robot.keyToggle(key, "down");
 			console.log(key);
 			robot.keyToggle(key, "up");
+
+			}
+			
+			catch(e)
+			{
+				console.error(e);
+			}
+			
 			response.end("{}");
 		}
 		else {

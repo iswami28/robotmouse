@@ -1,0 +1,15 @@
+{
+  "name": "robotmouse",
+  "version": "1.0.0",
+  "description": "Remote control mouse",
+  "main": "app.js",
+  "dependencies": {
+    "robotjs": "^0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

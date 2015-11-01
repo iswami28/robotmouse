@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Remote Control</title>
+	<meta charset="utf8">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<style>
+	</style>
+	<script type="text/javascript">
+	var c = console
+	var scaleX = 1
+	var scaleY = 1
+	
+	$(function(){
+		c.log("ready")
+		var endpoint = "http://localhost:9999"
+		
+		$(document)
+		.on("click", function(e){
+			send({mb: "left"})
+		}).on("contextmenu", function(){
+			send({mb: "right"})
+			return false
+		}).on("mousemove", function(e){
+			send({mx: e.clientX *  scaleX, my: e.clientY * scaleY})
+		}).on("keypress", function(e){
+			send({kp: String.fromCharCode(e.which)})
+		}).on("keyup", function(e){
+			//special backspace case
+			if (e.which == 8 || e.which == 46) {
+				send({kp: String.fromCharCode(e.which)})
+			}
+		})
+		
+		$.ajax({
+			url: endpoint,
+			success: function(screen) {
+				scaleX = screen.width/ window.innerWidth
+				scaleY = screen.height/ window.innerHeight
+			}
+		})
+		
+		function send(data) {
+			console.log(data)
+			$.ajax({
+				url: endpoint,
+				data: data
+			})
+		}
+
+	})
+	</script>    
+  </head>
+  <body>
+  </body>
+</html>

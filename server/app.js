@@ -14,9 +14,14 @@ function handleRequest(request, response) {
 	if (url.parse(request.url).pathname == '/') {
 		var queryObject = url.parse(request.url, true).query;
 
+		//console.log(queryObject);
+
 		var x = queryObject.mx;
 		var y = queryObject.my;
 		var button = queryObject.mb;
+		
+		var key = queryObject.kp;
+		var keyDirection = queryObject.kd;
 
 		if (x && y) {
 			robot.moveMouse(x, y);
@@ -26,11 +31,21 @@ function handleRequest(request, response) {
 		{
 			robot.mouseClick(button);
 			response.end("{}");
+			//console.log(button);
+		}
+		
+		else if(key)
+		{
+			robot.keyToggle(key, "down");
+			console.log(key);
+			robot.keyToggle(key, "up");
+			response.end("{}");
 		}
 		else {
 			response.end(JSON.stringify(robot.getScreenSize()));
 			console.log(robot.getScreenSize());
 		}
+		
 	}
 
 	

@@ -17,17 +17,15 @@ function handleRequest(request, response) {
 		var x = queryObject.mx;
 		var y = queryObject.my;
 		var button = queryObject.mb;
-		var state = queryObject.mp;
 
 		if (x && y) {
 			robot.moveMouse(x, y);
 			response.end("{}");
 		}
-		else if(button && state)
+		else if(button)
 		{
-			robot.mouseToggle(state, button);
+			robot.mouseClick(button);
 			response.end("{}");
-			console.log(button, state);
 		}
 		else {
 			response.end(JSON.stringify(robot.getScreenSize()));
